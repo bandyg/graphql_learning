@@ -1,44 +1,70 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { readFileSync } from 'node:fs';
+import { Resolvers } from './resolvers-types';
 
+const typeDefs = readFileSync('./schema.gql', 'utf8');
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
-const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+// const typeDefs = `#graphql
+//   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
+//   # This "Book" type defines the queryable fields for every book in our data source.
+//   type Book {
+//     title: String
+//     author: String
+//   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
+//   # The "Query" type is special: it lists all of the available queries that
+//   # clients can execute, along with the return type for each. In this
+//   # case, the "books" query returns an array of zero or more Books (defined above).
+//   type Query {
+//     books: [Book]
+//   }
+// `;
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
+{ 
+  "posts": [
+    {
+      "id": 1,
+      "title": "My First Post",
+      "author": {
+        "firstName": "John",
+        "lastName": "Doe"
+      }
+    },
+    {
+      "id": 2,  
+      "title": "Another Post",
+      "author": {
+        "firstName": "Jane",
+        "lastName": "Doe"
+      } 
+    },    
+    {    
+      "id": 3,
+      "title": "A New Article",  
+      "author": {
+        "firstName": "Jack",
+        "lastName": "Smith"
+      }      
+    }   
+  ]
+}
 
 // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
-    books: () => books,
+    // typed resolvers
   },
 };
+// const resolvers = {
+//   Query: {
+//     posts: () => books,
+//   },
+// };
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
