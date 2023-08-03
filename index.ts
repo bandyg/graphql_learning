@@ -24,40 +24,62 @@ const typeDefs = readFileSync('./schema.gql', 'utf8');
 //   }
 // `;
 
-{ 
-  "posts": [
+const posts = {
+  posts: [
     {
-      "id": 1,
-      "title": "My First Post",
-      "author": {
-        "firstName": "John",
-        "lastName": "Doe"
-      }
+      id: 1,
+      title: 'My First Post',
+      author: {
+        firstName: 'John',
+        lastName: 'Doe',
+      },
     },
     {
-      "id": 2,  
-      "title": "Another Post",
-      "author": {
-        "firstName": "Jane",
-        "lastName": "Doe"
-      } 
-    },    
-    {    
-      "id": 3,
-      "title": "A New Article",  
-      "author": {
-        "firstName": "Jack",
-        "lastName": "Smith"
-      }      
-    }   
-  ]
-}
+      id: 2,
+      title: 'Another Post',
+      author: {
+        firstName: 'Jane',
+        lastName: 'Doe',
+      },
+    },
+    {
+      id: 3,
+      title: 'A New Article',
+      author: {
+        firstName: 'Jack',
+        lastName: 'Smith',
+      },
+    },
+  ],
+};
 
 // Resolvers define the technique for fetching the types defined in the
 // schema. This resolver retrieves books from the "books" array above.
 const resolvers: Resolvers = {
   Query: {
-    // typed resolvers
+    posts: () => {
+      return [    {
+        id: 1,
+        title: 'My First Post',
+        author: {
+          firstName: 'John',
+          lastName: 'Doe',
+        },
+      }];
+      // Return all posts from your data source
+    },
+  },
+  Author: {
+    firstName: (parent) => parent.firstName,
+    lastName: (parent) => parent.lastName,
+    posts: (parent) => {
+      return [];
+      // Return parent's posts from data source, optionally filtering by title
+    },
+  },
+  Post: {
+    author: (parent) => parent.author,
+    title: (parent) => parent.title,
   },
 };
 // const resolvers = {

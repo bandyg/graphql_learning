@@ -2,7 +2,6 @@ type Author {
 	id: Int!
 	firstName: String!
 	lastName: String!
-	posts(findTitle: String): [Post]
 }
 
 type Post {
