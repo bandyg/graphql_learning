@@ -20,12 +20,6 @@ export type Author = {
   firstName: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   lastName: Scalars['String']['output'];
-  posts?: Maybe<Array<Maybe<Post>>>;
-};
-
-
-export type AuthorPostsArgs = {
-  findTitle?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Post = {
@@ -134,7 +128,6 @@ export type AuthorResolvers<ContextType = any, ParentType extends ResolversParen
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  posts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, Partial<AuthorPostsArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -1,5 +1,5 @@
 const config = {
-    schema: 'schema.gql',
+    schema: './schema.gql',
     generates: {
         './resolvers-types.ts': {
             config: {

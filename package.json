@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc && node ./dist/index.js",
-    "gen": "graphql-codegen"
+    "gen": "cd src && graphql-codegen",
+    "postbuild": "cp -r ./src/data ./dist/data && cp -u 1 src/**/*.gql dist/"
   },
   "keywords": [],
   "author": "",
@@ -15,13 +16,16 @@
   "dependencies": {
     "@apollo/server": "^4.9.0",
     "@types/node": "^20.4.6",
-    "graphql": "^16.7.1"
+    "graphql": "^16.7.1",
+    "notarealdb": "^0.2.2",
+    "copyfiles": "^2.4.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "@types/node": "^20.4.5"
   }
 }
