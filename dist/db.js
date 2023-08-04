@@ -1,5 +1,10 @@
-import { DataStore } from 'notarealdb';
-const store = new DataStore('./dist/data');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.horses = exports.races = exports.store = void 0;
+const notarealdb_1 = require("notarealdb");
+const store = new notarealdb_1.DataStore('./dist/data');
+exports.store = store;
 const races = store.collection('races');
+exports.races = races;
 const horses = store.collection('horses');
-export { store, races, horses };
+exports.horses = horses;

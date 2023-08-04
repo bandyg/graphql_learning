@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const config = {
     schema: './schema.gql',
     generates: {
@@ -9,4 +11,4 @@ const config = {
         },
     },
 };
-export default config;
+exports.default = config;

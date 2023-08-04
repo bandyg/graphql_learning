@@ -1,10 +1,14 @@
-import { horses, races } from './db';
-export const buildContext = async (req) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildContext = void 0;
+const db_1 = require("./db");
+const buildContext = async (req) => {
     const dataSources = {
-        races,
-        horses,
+        races: db_1.races,
+        horses: db_1.horses,
     };
     return {
         dataSources,
     };
 };
+exports.buildContext = buildContext;

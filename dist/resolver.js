@@ -1,4 +1,7 @@
-export const resolvers = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.resolvers = void 0;
+exports.resolvers = {
     Query: {
         races: (_, __, { dataSources }) => {
             return dataSources.races.list();
