@@ -27,12 +27,19 @@ export type Horse = {
 export type Mutation = {
   __typename?: 'Mutation';
   updateHorseName?: Maybe<Horse>;
+  updateRace?: Maybe<Race>;
 };
 
 
 export type MutationUpdateHorseNameArgs = {
   id: Scalars['ID']['input'];
   name: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateRaceArgs = {
+  id: Scalars['ID']['input'];
+  raceNo?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Query = {
@@ -154,6 +161,7 @@ export type HorseResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   updateHorseName?: Resolver<Maybe<ResolversTypes['Horse']>, ParentType, ContextType, RequireFields<MutationUpdateHorseNameArgs, 'id' | 'name'>>;
+  updateRace?: Resolver<Maybe<ResolversTypes['Race']>, ParentType, ContextType, RequireFields<MutationUpdateRaceArgs, 'id'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{

@@ -5,15 +5,11 @@
   },
   {
     "id": "horse#2",
-    "name": "Roncinant",
-    "rank": 99,
-    "race": "race#1"
+    "name": "Ben's 2nd horse"
   },
   {
     "id": "horse#3",
-    "name": "Harry Trotter",
-    "rank": 54,
-    "race": "race#2"
+    "name": "Ben's 3nd horse"
   },
   {
     "id": "horse#4",

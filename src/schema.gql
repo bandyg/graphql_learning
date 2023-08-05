@@ -26,4 +26,5 @@ type Horse {
 
 type Mutation {
   updateHorseName(id: ID!, name: String!): Horse
+  updateRace(id: ID!, raceNo: Int): Race
 }

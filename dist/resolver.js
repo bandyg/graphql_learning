@@ -25,8 +25,13 @@ exports.resolvers = {
     Mutation: {
         updateHorseName: async (_, { id, name }, { dataSources }) => {
             const horse = dataSources.horses.get(id);
-            dataSources.horses.update({ id: id, name: name });
+            dataSources.horses.update({ ...horse, name: name });
             return horse;
+        },
+        updateRace: async (_, { id, raceNo }, { dataSources }) => {
+            const race = dataSources.races.get(id);
+            dataSources.races.update({ ...race, no: raceNo });
+            return race;
         },
     },
 };

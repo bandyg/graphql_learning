@@ -28,8 +28,13 @@ export const resolvers: Resolvers = {
       { dataSources }: any
     ) => {
       const horse = dataSources.horses.get(id);
-      dataSources.horses.update({ id: id, name: name });
+      dataSources.horses.update({ ...horse, name: name });
       return horse;
+    },
+    updateRace: async (_: any, { id, raceNo }: any, { dataSources }: any) => {
+      const race = dataSources.races.get(id);
+      dataSources.races.update({ ...race, no: raceNo });
+      return race;
     },
   },
 };
