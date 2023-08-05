@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("@apollo/server");
+const standalone_1 = require("@apollo/server/standalone");
 const node_fs_1 = require("node:fs");
+const context_1 = require("./context");
 const resolver_1 = require("./resolver");
 const typeDefs = (0, node_fs_1.readFileSync)('./dist/schema.gql', 'utf8');
 async function start() {
@@ -10,13 +12,13 @@ async function start() {
         resolvers: resolver_1.resolvers,
     });
     const PORT = parseInt(process.env.PORT || '4001');
-    // const { url } = await startStandaloneServer(server, {
-    //   listen: { port: PORT },
-    //   context: buildContext,
-    // });
-    // console.log(`Server is running at ${url}`);
+    const { url } = await (0, standalone_1.startStandaloneServer)(server, {
+        listen: { port: PORT },
+        context: context_1.buildContext,
+    });
+    console.log(`Server is running at ${url}`);
 }
-// start();
+start();
 // const typeDefs = readFileSync('./dist/schema.gql', 'utf8');
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against

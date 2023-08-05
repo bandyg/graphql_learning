@@ -6,6 +6,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -15,23 +16,38 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Author = {
-  __typename?: 'Author';
-  firstName: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  lastName: Scalars['String']['output'];
+export type Horse = {
+  __typename?: 'Horse';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  race?: Maybe<Race>;
+  rank?: Maybe<Scalars['Int']['output']>;
 };
 
-export type Post = {
-  __typename?: 'Post';
-  author?: Maybe<Author>;
-  id: Scalars['Int']['output'];
-  title: Scalars['String']['output'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  updateHorseName?: Maybe<Horse>;
+};
+
+
+export type MutationUpdateHorseNameArgs = {
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  posts?: Maybe<Array<Maybe<Post>>>;
+  horses: Array<Maybe<Horse>>;
+  races: Array<Maybe<Race>>;
+};
+
+export type Race = {
+  __typename?: 'Race';
+  horses: Array<Horse>;
+  id: Scalars['ID']['output'];
+  no?: Maybe<Scalars['Int']['output']>;
+  startTime: Scalars['String']['output'];
+  venue: Scalars['String']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -106,45 +122,58 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Author: ResolverTypeWrapper<Author>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Horse: ResolverTypeWrapper<Horse>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Post: ResolverTypeWrapper<Post>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  Race: ResolverTypeWrapper<Race>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Author: Author;
   Boolean: Scalars['Boolean']['output'];
+  Horse: Horse;
+  ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
-  Post: Post;
+  Mutation: {};
   Query: {};
+  Race: Race;
   String: Scalars['String']['output'];
 }>;
 
-export type AuthorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = ResolversObject<{
-  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+export type HorseResolvers<ContextType = any, ParentType extends ResolversParentTypes['Horse'] = ResolversParentTypes['Horse']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  race?: Resolver<Maybe<ResolversTypes['Race']>, ParentType, ContextType>;
+  rank?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
-  author?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  updateHorseName?: Resolver<Maybe<ResolversTypes['Horse']>, ParentType, ContextType, RequireFields<MutationUpdateHorseNameArgs, 'id' | 'name'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  posts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
+  horses?: Resolver<Array<Maybe<ResolversTypes['Horse']>>, ParentType, ContextType>;
+  races?: Resolver<Array<Maybe<ResolversTypes['Race']>>, ParentType, ContextType>;
+}>;
+
+export type RaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Race'] = ResolversParentTypes['Race']> = ResolversObject<{
+  horses?: Resolver<Array<ResolversTypes['Horse']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  no?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  startTime?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  venue?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
-  Author?: AuthorResolvers<ContextType>;
-  Post?: PostResolvers<ContextType>;
+  Horse?: HorseResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Race?: RaceResolvers<ContextType>;
 }>;
 

@@ -12,14 +12,14 @@ async function start() {
     resolvers,
   });
   const PORT = parseInt(process.env.PORT || '4001');
-  // const { url } = await startStandaloneServer(server, {
-  //   listen: { port: PORT },
-  //   context: buildContext,
-  // });
-  // console.log(`Server is running at ${url}`);
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: PORT },
+    context: buildContext,
+  });
+  console.log(`Server is running at ${url}`);
 }
 
-// start();
+start();
 // const typeDefs = readFileSync('./dist/schema.gql', 'utf8');
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against

@@ -11,15 +11,22 @@ exports.resolvers = {
         },
     },
     Race: {
-        horses: (parent, __, { dataSources }) => {
+        horses: (_, __, { dataSources }) => {
             return dataSources.horses
                 .list()
-                .filter((horse) => horse.race === parent.id);
+                .filter((horse) => horse.race === _.id);
         },
     },
     Horse: {
-        race: (parent, _, { dataSources }) => {
-            return dataSources.races.get(parent.race);
+        race: (_, __, { dataSources }) => {
+            return dataSources.races.get(_.race);
+        },
+    },
+    Mutation: {
+        updateHorseName: async (_, { id, name }, { dataSources }) => {
+            const horse = dataSources.horses.get(id);
+            dataSources.horses.update({ id: id, name: name });
+            return horse;
         },
     },
 };

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc && node ./dist/index.js",
     "gen": "cd src && graphql-codegen",
-    "postbuild": "cp -r ./src/data ./dist/data && cp -u 1 src/**/*.gql dist/"
+    "postbuild": "cp -r ./src/data ./dist/data && cp src/**/*.gql dist/"
   },
   "keywords": [],
   "author": "",

@@ -10,15 +10,26 @@ export const resolvers: Resolvers = {
     },
   },
   Race: {
-    horses: (parent: { id: any }, __: any, { dataSources }: any) => {
+    horses: (_: { id: any }, __: any, { dataSources }: any) => {
       return dataSources.horses
         .list()
-        .filter((horse: { race: any }) => horse.race === parent.id);
+        .filter((horse: { race: any }) => horse.race === _.id);
     },
   },
   Horse: {
-    race: (parent: { race: any }, _: any, { dataSources }: any) => {
-      return dataSources.races.get(parent.race);
+    race: (_: any, __: any, { dataSources }: any) => {
+      return dataSources.races.get(_.race);
+    },
+  },
+  Mutation: {
+    updateHorseName: async (
+      _: any,
+      { id, name }: any,
+      { dataSources }: any
+    ) => {
+      const horse = dataSources.horses.get(id);
+      dataSources.horses.update({ id: id, name: name });
+      return horse;
     },
   },
 };

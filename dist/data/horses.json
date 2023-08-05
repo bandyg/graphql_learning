@@ -1,9 +1,7 @@
 [
   {
     "id": "horse#1",
-    "name": "Tornado",
-    "rank": 11,
-    "race": "race#1"
+    "name": "Ben's horse"
   },
   {
     "id": "horse#2",

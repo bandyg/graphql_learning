@@ -1,5 +1,7 @@
 schema {
-    query: Query
+  query: Query 
+  mutation: Mutation
+  # subscription: Subscription
 }
 
 type Query {
@@ -20,4 +22,8 @@ type Horse {
   name: String!
   rank: Int
   race: Race
+}
+
+type Mutation {
+  updateHorseName(id: ID!, name: String!): Horse
 }
